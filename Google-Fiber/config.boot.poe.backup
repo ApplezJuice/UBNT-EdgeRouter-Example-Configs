@@ -155,7 +155,7 @@ firewall {
             action accept
             description "Port Forward - Router SSH"
             destination {
-                address 10.15.10.1
+                address 192.168.1.1
                 port 22
             }
             protocol tcp
@@ -164,7 +164,7 @@ firewall {
             action accept
             description "Port Forward - Router HTTPS"
             destination {
-                address 10.15.10.1
+                address 192.168.1.1
                 port 443
             }
             protocol tcp
@@ -308,7 +308,7 @@ interfaces {
     loopback lo {
     }
     switch switch0 {
-        address 10.15.10.1/24
+        address 192.168.1.1/24
         description "LAN Switch"
         firewall {
             in {
@@ -326,7 +326,7 @@ interfaces {
             vlan-aware disable
         }
         vif 102 {
-            address 10.15.11.1/24
+            address 172.16.0.1/24
             description "Guest Network VLAN"
             mtu 1500
         }
@@ -339,7 +339,7 @@ port-forward {
     rule 10 {
         description "Router SSH"
         forward-to {
-            address 10.15.10.1
+            address 192.168.1.1
             port 22
         }
         original-port 2222
@@ -348,7 +348,7 @@ port-forward {
     rule 20 {
         description "Router HTTPS"
         forward-to {
-            address 10.15.10.1
+            address 192.168.1.1
             port 443
         }
         original-port 8080
@@ -362,28 +362,28 @@ service {
         hostfile-update enable
         shared-network-name Guest {
             authoritative disable
-            subnet 10.15.11.0/24 {
-                default-router 10.15.11.1
+            subnet 172.16.0.0/24 {
+                default-router 172.16.0.1
                 dns-server 8.8.8.8
                 dns-server 8.8.4.4
-                domain-name guest.applez.juice.com
+                domain-name guest.example.com
                 lease 86400
-                start 10.15.11.50 {
-                    stop 10.15.10.254
+                start 172.16.0.10 {
+                    stop 172.16.0.254
                 }
             }
         }
         shared-network-name LAN {
             authoritative disable
-            subnet 10.15.10.0/24 {
-                default-router 10.15.10.1
-                dns-server 10.15.10.1
+            subnet 192.168.1.0/24 {
+                default-router 192.168.1.1
+                dns-server 192.168.1.1
                 dns-server 8.8.8.8
                 dns-server 8.8.4.4
-                domain-name applez.juice.com
+                domain-name example.com
                 lease 86400
-                start 10.15.10.50 {
-                    stop 10.15.10.254
+                start 192.168.1.101 {
+                    stop 192.168.1.254
                 }
             }
         }
