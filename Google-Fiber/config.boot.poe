@@ -364,8 +364,7 @@ service {
             authoritative disable
             subnet 10.15.11.0/24 {
                 default-router 10.15.11.1
-                dns-server 8.8.8.8
-                dns-server 8.8.4.4
+                dns-server 10.15.11.1
                 domain-name guest.applez.juice.com
                 lease 86400
                 start 10.15.11.50 {
@@ -378,8 +377,7 @@ service {
             subnet 10.15.10.0/24 {
                 default-router 10.15.10.1
                 dns-server 10.15.10.1
-                dns-server 8.8.8.8
-                dns-server 8.8.4.4
+                dns-server 10.15.10.1
                 domain-name applez.juice.com
                 lease 86400
                 start 10.15.10.50 {
